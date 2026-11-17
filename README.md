@@ -17,22 +17,22 @@ The easiest way to install Zolaero is to add it as a Git submodule to your exist
 
 1. From your Zola site's root directory, run:
    ```bash
-   git submodule add [https://github.com/jakeslabsdev/zolaero](https://github.com/jakeslabsdev/zolaero) themes/zolaero
+   git submodule add https://github.com/jakeslabsdev/zolaero themes/zolaero
    ```
-2. Update your `zola.toml` to use the theme:
+2. Update your `config.toml` to use the theme:
    ```toml
    theme = "zolaero"
    ```
 
 ## ⚙️ Configuration
 
-Zolaero handles custom navigation and metadata through the `[extra]` block in your `zola.toml` file. Copy the following defaults into your configuration and adjust them to fit your site:
+Zolaero handles custom navigation and metadata through the `[extra]` block in your `config.toml` file. Copy the following defaults into your configuration and adjust them to fit your site:
 
 ```toml
 [extra]
 # Author info for footer and SEO metadata
 author_name = "Your Name"
-author_github = "[https://github.com/yourusername](https://github.com/yourusername)"
+author_github = "https://github.com/yourusername"
 display_author = true
 
 # Allow users to inject their own stylesheets (place files in your static/ folder)
@@ -52,13 +52,15 @@ list_pages = true
 
 ## 📝 Writing Content
 
-Zolaero includes a built-in Table of Contents feature. To enable it on any article, ensure you include `toc = true` in your markdown frontmatter:
+Zolaero automatically generates a Table of Contents for articles that contain headings. If you want to disable it on a specific post, add `toc = false` under `[extra]` in your markdown frontmatter:
 
 ```toml
 +++
 title = "My Technical Writeup"
 date = 2026-11-17
-toc = true
+
+[extra]
+toc = false
 +++
 ```
 
