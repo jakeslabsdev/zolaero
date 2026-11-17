@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="content-section">
+    <h1>{{ section.title }}</h1>
+    {{ section.content | safe }}
+
+    <ul style="list-style-type: none; padding: 0; margin-top: 1.5rem;">
+        {% set pages_to_render = section.pages %}
+        {% if paginator is defined %}
+            {% set pages_to_render = paginator.pages %}
+        {% endif %}
+
+        {% for page in pages_to_render %}
+        <li style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed rgba(0,0,0,0.08); padding-bottom: 0.75rem;">
+            <div>
+                {% if page.date %}
+                <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-right: 1rem;">
+                    {{ page.date | date(format="%Y-%m-%d") }}
+                </span>
+                {% endif %}
+                <a href="{{ page.permalink }}" style="font-weight: 600;">{{ page.title }}</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% if paginator is defined %}
+    <nav class="pagination" style="margin-top: 2rem; font-family: var(--font-mono); display: flex; justify-content: space-between;">
+        {% if paginator.previous %}
+            <a href="{{ paginator.previous }}">← Newer Posts</a>
+        {% endif %}
+        {% if paginator.next %}
+            <a href="{{ paginator.next }}">Older Posts →</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+</section>
+{% endblock content %}

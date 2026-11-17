@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Tag Archive</h1>
+
+<div style="margin-top: 1.5rem;">
+    {% if terms %}
+        <ul style="list-style-type: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            {% for term in terms %}
+            <li>
+                <a href="{{ term.permalink }}" style="background: rgba(0, 174, 239, 0.12); padding: 0.4rem 0.8rem; border-radius: 6px; display: inline-block; font-family: var(--font-mono); font-size: 0.9rem;">
+                    {{ term.name }} <span style="color: var(--text-muted); font-size: 0.8em;">({{ term.pages | length }})</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tags found.</p>
+    {% endif %}
+</div>
+{% endblock content %}

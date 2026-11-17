@@ -1,0 +1,21 @@
+name = "zolaero"
+description = "A minimalist Frutiger Aero theme for technical writeups."
+license = "MIT"
+homepage = "https://github.com/jakeslabsdev/zolaero"
+
+# Default variables for the theme. 
+# You can overwrtie this in your own config.toml.
+[extra]
+author_name = "JakeS"
+author_github = "https://github.com/jakeslabsdev/zolaero"
+
+# You can inject your own stylesheet here
+custom_css = []
+
+# Default navigation menu
+zolaero_menu = [
+    { name = "/home/", url = "/" },
+    { name = "/archive/", url = "/archive/" },
+    { name = "/tags/", url = "/tags/" },
+    { name = "/about/", url = "/about/" },
+]

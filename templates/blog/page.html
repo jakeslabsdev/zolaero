@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="post">
+    <header class="post-header" style="margin-bottom: 2rem;">
+        {% if page.date %}
+        <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+            ✦ Published on: <span style="color: var(--accent-blue);">{{ page.date | date(format="%Y-%m-%d") }}</span>
+        </p>
+        {% endif %}
+
+        <h1 style="margin-bottom: 0.5rem;">{{ page.title }}</h1>
+    </header>
+
+    {% if page.toc and page.extra.toc | default(value=true) %}
+    <nav class="toc-container" style="background: rgba(0, 174, 239, 0.05); border: 1px dashed rgba(0, 174, 239, 0.3); padding: 1.25rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="font-size: 1rem; margin-bottom: 0.75rem; color: var(--accent-blue);"># Table of Contents</h3>
+        <ul style="list-style-type: none; padding-left: 0; font-family: var(--font-mono); font-size: 0.9rem;">
+            {% for h1 in page.toc %}
+            <li style="margin-bottom: 0.4rem;">
+                <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+                {% if h1.children %}
+                <ul style="list-style-type: none; padding-left: 1.2rem; margin-top: 0.3rem;">
+                    {% for h2 in h1.children %}
+                    <li style="margin-bottom: 0.2rem;"><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    <div class="post-content">
+        {{ page.content | safe }}
+    </div>
+
+    {% if page.taxonomies.tags %}
+    <footer class="post-tags" style="margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.08); display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        {% for tag in page.taxonomies.tags %}
+        <a href="{{ get_url(path='tags/' ~ tag) }}" style="font-family: var(--font-mono); font-size: 0.8rem; background: rgba(224, 86, 253, 0.1); color: var(--accent-pink); padding: 0.25rem 0.6rem; border-radius: 4px;">#{{ tag }}</a>
+        {% endfor %}
+    </footer>
+    {% endif %}
+</article>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="home-hero">
+    {{ section.content | safe }}
+</div>
+
+<div class="archive-preview" style="margin-top: 2rem;">
+    <h2 style="font-size: 1.25rem; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 0.5rem; margin-bottom: 1rem;"># Recent Lab Notes</h2>
+    
+    <ul style="list-style-type: none; padding: 0;">
+        {% set archive_section = get_section(path="archive/_index.md", catch=true) %}
+        {% if archive_section and archive_section.pages %}
+            {% set_global count = 0 %}
+            {% for page in archive_section.pages %}
+                {% if count < 5 %}
+                <li style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: baseline;">
+                    <div>
+                        {% if page.date %}
+                        <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-right: 1rem;">
+                            {{ page.date | date(format="%Y-%m-%d") }}
+                        </span>
+                        {% endif %}
+                        <a href="{{ page.permalink }}" style="font-weight: 600;">{{ page.title }}</a>
+                    </div>
+                </li>
+                {% set_global count = count + 1 %}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.9rem;">No archive entries found yet.</p>
+        {% endif %}
+    </ul>
+</div>
+{% endblock content %}

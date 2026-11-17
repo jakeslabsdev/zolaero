@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Pages tagged with "{{ term.name }}"</h1>
+
+<ul style="list-style-type: none; padding: 0; margin-top: 1.5rem;">
+    {% for page in term.pages %}
+    <li style="margin-bottom: 0.75rem;">
+        <span style="font-family: var(--font-mono); color: var(--text-muted);">{{ page.date | date(format="%Y-%m-%d") }}</span> — 
+        <a href="{{ page.permalink }}">{{ page.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}

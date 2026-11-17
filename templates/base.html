@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="{{ get_url(path='atom.xml', trailing_slash=false) }}">
+    <title>{% if page is defined and page.title %}{{ page.title }} | {{ config.title }}{% else %}{{ config.title }}{% endif %}</title>
+    <link rel="stylesheet" href="{{ get_url(path='css/style.css') }}">
+    {% if config.extra.custom_css %}
+        {% for css_file in config.extra.custom_css %}
+            <link rel="stylesheet" href="{{ get_url(path=css_file) }}">
+        {% endfor %}
+    {% endif %}
+    <link rel="icon" href="{{ config.base_url }}/favicon.ico">
+    <!-- SEO & Open Graph -->
+    <meta property="og:title" content="{% if page is defined and page.title %}{{ page.title }}{% elif section is defined and section.title %}{{ section.title }}{% else %}{{ config.title }}{% endif %}">
+    <meta property="og:description" content="{% if page is defined and page.description %}{{ page.description }}{% elif section is defined and section.description %}{{ section.description }}{% elif config.description %}{{ config.description }}{% else %}{{ config.title }}{% endif %}">
+    <meta property="og:url" content="{{ current_url | default(value=config.base_url) }}">
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+    <div class="viewport-wrapper">
+        <header class="site-header">
+            <nav class="nav-links">
+                {% if config.extra.zolaero_menu %}
+                    {% for item in config.extra.zolaero_menu %}
+                        <a href="{{ item.url | replace(from="$BASE_URL", to=config.base_url) }}">{{ item.name }}</a>
+                    {% endfor %}
+                {% endif %}
+            </nav>
+        </header>
+
+        <main class="content-card">
+            {% block content %}{% endblock content %}
+        </main>
+
+        <footer class="site-footer">
+            <p>Built with Zola · 
+                {% if config.extra.author_github %}
+                    <a href="{{ config.extra.author_github }}" target="_blank">Theme Source</a>
+                {% endif %}
+            </p>
+</footer>
+    </div>
+</body>
+</html>
